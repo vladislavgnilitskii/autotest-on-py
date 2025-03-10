@@ -17,18 +17,16 @@ class TestAddGroup(unittest.TestCase):
         self.open_home_page(wd)
         self.login(wd)
         self.open_groups_page(wd)
-        self.init_group_creation(wd)
-        self.fill_group_firm(wd)
-        self.submit_group_creations(wd)
+        self.create_group(wd)
         self.logout(wd)
 
     def logout(self, wd):
         wd.find_element(By.LINK_TEXT, "Logout").click()
 
-    def submit_group_creations(self, wd):
-        wd.find_element(By.NAME, "submit").click()
-
-    def fill_group_firm(self, wd):
+    def create_group(self, wd):
+        # init group creation
+        wd.find_element(By.NAME, "new").click()
+        # fill group firm
         wd.find_element(By.NAME, "group_name").click()
         wd.find_element(By.NAME, "group_name").clear()
         wd.find_element(By.NAME, "group_name").send_keys("asdf")
@@ -39,9 +37,8 @@ class TestAddGroup(unittest.TestCase):
         wd.find_element(By.NAME, "group_footer").clear()
         wd.find_element(By.NAME, "group_footer").send_keys("asdsdgfc")
         wd.find_element(By.ID, "container").click()
-
-    def init_group_creation(self, wd):
-        wd.find_element(By.NAME, "new").click()
+        # submit group creations
+        wd.find_element(By.NAME, "submit").click()
 
     def open_groups_page(self, wd):
         wd.find_element(By.LINK_TEXT, "groups").click()

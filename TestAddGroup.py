@@ -6,6 +6,7 @@ from selenium.webdriver.support.ui import Select
 from selenium.common.exceptions import NoSuchElementException
 from selenium.common.exceptions import NoAlertPresentException
 import unittest, time, re
+from group import Group
 
 class TestAddGroup(unittest.TestCase):
     def setUp(self):
@@ -17,7 +18,7 @@ class TestAddGroup(unittest.TestCase):
         self.open_home_page(wd)
         self.login(wd, "admin", "secret")
         self.open_groups_page(wd)
-        self.create_group(wd, "House", "asl", "da")
+        self.create_group(wd, Group("House", "asl", "da"))
         self.logout(wd)
 
     def test_add_empty_group(self):
@@ -25,25 +26,25 @@ class TestAddGroup(unittest.TestCase):
         self.open_home_page(wd)
         self.login(wd, "admin", "secret")
         self.open_groups_page(wd)
-        self.create_group(wd, "", "", "")
+        self.create_group(wd, Group("", "", ""))
         self.logout(wd)
 
     def logout(self, wd):
         wd.find_element(By.LINK_TEXT, "Logout").click()
 
-    def create_group(self, wd, name, header, footer):
+    def create_group(self, wd, group):
         # init group creation
         wd.find_element(By.NAME, "new").click()
         # fill group firm
         wd.find_element(By.NAME, "group_name").click()
         wd.find_element(By.NAME, "group_name").clear()
-        wd.find_element(By.NAME, "group_name").send_keys(name)
+        wd.find_element(By.NAME, "group_name").send_keys(group.name)
         wd.find_element(By.NAME, "group_header").click()
         wd.find_element(By.NAME, "group_header").clear()
-        wd.find_element(By.NAME, "group_header").send_keys(header)
+        wd.find_element(By.NAME, "group_header").send_keys(group.header)
         wd.find_element(By.NAME, "group_footer").click()
         wd.find_element(By.NAME, "group_footer").clear()
-        wd.find_element(By.NAME, "group_footer").send_keys(footer)
+        wd.find_element(By.NAME, "group_footer").send_keys(group.footer)
         wd.find_element(By.ID, "container").click()
         # submit group creations
         wd.find_element(By.NAME, "submit").click()

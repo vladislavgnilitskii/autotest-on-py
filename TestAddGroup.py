@@ -14,20 +14,21 @@ class TestAddGroup(unittest.TestCase):
 
     def test_add_group(self):
         wd = self.wd
-        #open home page
-        wd.get("http://localhost/addressbook/")
-        #login
-        wd.find_element(By.NAME, "user").clear()
-        wd.find_element(By.NAME, "user").send_keys("admin")
-        wd.find_element(By.NAME, "pass").clear()
-        wd.find_element(By.NAME, "pass").send_keys("secret")
-        wd.find_element(By.ID, "LoginForm").submit()
-        wd.find_element(By.XPATH, "//body").click()
-        #open groups page
-        wd.find_element(By.LINK_TEXT, "groups").click()
-        #init group creation
-        wd.find_element(By.NAME, "new").click()
-        #fill group firm
+        self.open_home_page(wd)
+        self.login(wd)
+        self.open_groups_page(wd)
+        self.init_group_creation(wd)
+        self.fill_group_firm(wd)
+        self.submit_group_creations(wd)
+        self.logout(wd)
+
+    def logout(self, wd):
+        wd.find_element(By.LINK_TEXT, "Logout").click()
+
+    def submit_group_creations(self, wd):
+        wd.find_element(By.NAME, "submit").click()
+
+    def fill_group_firm(self, wd):
         wd.find_element(By.NAME, "group_name").click()
         wd.find_element(By.NAME, "group_name").clear()
         wd.find_element(By.NAME, "group_name").send_keys("asdf")
@@ -38,10 +39,23 @@ class TestAddGroup(unittest.TestCase):
         wd.find_element(By.NAME, "group_footer").clear()
         wd.find_element(By.NAME, "group_footer").send_keys("asdsdgfc")
         wd.find_element(By.ID, "container").click()
-        #submit group creations
-        wd.find_element(By.NAME, "submit").click()
-        #logout
-        wd.find_element(By.LINK_TEXT, "Logout").click()
+
+    def init_group_creation(self, wd):
+        wd.find_element(By.NAME, "new").click()
+
+    def open_groups_page(self, wd):
+        wd.find_element(By.LINK_TEXT, "groups").click()
+
+    def login(self, wd):
+        wd.find_element(By.NAME, "user").clear()
+        wd.find_element(By.NAME, "user").send_keys("admin")
+        wd.find_element(By.NAME, "pass").clear()
+        wd.find_element(By.NAME, "pass").send_keys("secret")
+        wd.find_element(By.ID, "LoginForm").submit()
+        wd.find_element(By.XPATH, "//body").click()
+
+    def open_home_page(self, wd):
+        wd.get("http://localhost/addressbook/")
 
     def is_element_present(self, how, what):
         try:

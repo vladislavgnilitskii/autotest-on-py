@@ -15,27 +15,27 @@ class TestAddGroup(unittest.TestCase):
     def test_add_group(self):
         wd = self.wd
         self.open_home_page(wd)
-        self.login(wd)
+        self.login(wd, "admin", "secret")
         self.open_groups_page(wd)
-        self.create_group(wd)
+        self.create_group(wd, "House", "asl", "da")
         self.logout(wd)
 
     def logout(self, wd):
         wd.find_element(By.LINK_TEXT, "Logout").click()
 
-    def create_group(self, wd):
+    def create_group(self, wd, name, header, footer):
         # init group creation
         wd.find_element(By.NAME, "new").click()
         # fill group firm
         wd.find_element(By.NAME, "group_name").click()
         wd.find_element(By.NAME, "group_name").clear()
-        wd.find_element(By.NAME, "group_name").send_keys("asdf")
+        wd.find_element(By.NAME, "group_name").send_keys(name)
         wd.find_element(By.NAME, "group_header").click()
         wd.find_element(By.NAME, "group_header").clear()
-        wd.find_element(By.NAME, "group_header").send_keys("asdfgxc")
+        wd.find_element(By.NAME, "group_header").send_keys(header)
         wd.find_element(By.NAME, "group_footer").click()
         wd.find_element(By.NAME, "group_footer").clear()
-        wd.find_element(By.NAME, "group_footer").send_keys("asdsdgfc")
+        wd.find_element(By.NAME, "group_footer").send_keys(footer)
         wd.find_element(By.ID, "container").click()
         # submit group creations
         wd.find_element(By.NAME, "submit").click()
@@ -43,11 +43,11 @@ class TestAddGroup(unittest.TestCase):
     def open_groups_page(self, wd):
         wd.find_element(By.LINK_TEXT, "groups").click()
 
-    def login(self, wd):
+    def login(self, wd, username, password):
         wd.find_element(By.NAME, "user").clear()
-        wd.find_element(By.NAME, "user").send_keys("admin")
+        wd.find_element(By.NAME, "user").send_keys(username)
         wd.find_element(By.NAME, "pass").clear()
-        wd.find_element(By.NAME, "pass").send_keys("secret")
+        wd.find_element(By.NAME, "pass").send_keys(password)
         wd.find_element(By.ID, "LoginForm").submit()
         wd.find_element(By.XPATH, "//body").click()
 

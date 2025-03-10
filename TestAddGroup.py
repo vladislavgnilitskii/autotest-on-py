@@ -14,15 +14,20 @@ class TestAddGroup(unittest.TestCase):
 
     def test_add_group(self):
         wd = self.wd
+        #open home page
         wd.get("http://localhost/addressbook/")
+        #login
         wd.find_element(By.NAME, "user").clear()
         wd.find_element(By.NAME, "user").send_keys("admin")
         wd.find_element(By.NAME, "pass").clear()
         wd.find_element(By.NAME, "pass").send_keys("secret")
         wd.find_element(By.ID, "LoginForm").submit()
         wd.find_element(By.XPATH, "//body").click()
+        #open groups page
         wd.find_element(By.LINK_TEXT, "groups").click()
+        #init group creation
         wd.find_element(By.NAME, "new").click()
+        #fill group firm
         wd.find_element(By.NAME, "group_name").click()
         wd.find_element(By.NAME, "group_name").clear()
         wd.find_element(By.NAME, "group_name").send_keys("asdf")
@@ -33,15 +38,9 @@ class TestAddGroup(unittest.TestCase):
         wd.find_element(By.NAME, "group_footer").clear()
         wd.find_element(By.NAME, "group_footer").send_keys("asdsdgfc")
         wd.find_element(By.ID, "container").click()
+        #submit group creations
         wd.find_element(By.NAME, "submit").click()
-        wd.find_element(By.LINK_TEXT, "Logout").click()
-        wd.find_element(By.NAME, "user").click()
-        wd.find_element(By.NAME, "user").clear()
-        wd.find_element(By.NAME, "user").send_keys("admin")
-        wd.find_element(By.NAME, "pass").clear()
-        wd.find_element(By.NAME, "pass").send_keys("secret")
-        wd.find_element(By.ID, "LoginForm").submit()
-        wd.find_element(By.XPATH, "//form[@action='/addressbook/group.php']").click()
+        #logout
         wd.find_element(By.LINK_TEXT, "Logout").click()
 
     def is_element_present(self, how, what):

@@ -1,13 +1,12 @@
 from selenium.webdriver.common.by import By
 
-
 class SessionHelper:
     def __init__(self, app):
         self.app = app
 
     def login(self, username, password):
         wd = self.app.wd
-        self.app.pen_home_page()
+        self.app.open_home_page()
         wd.find_element(By.NAME, "user").clear()
         wd.find_element(By.NAME, "user").send_keys(username)
         wd.find_element(By.NAME, "pass").clear()

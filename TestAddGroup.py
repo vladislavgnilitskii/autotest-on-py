@@ -15,17 +15,13 @@ class TestAddGroup(unittest.TestCase):
 
     def test_add_group(self):
         wd = self.wd
-        self.open_home_page(wd)
         self.login(wd, "admin", "secret")
-        self.open_groups_page(wd)
         self.create_group(wd, Group("House", "asl", "da"))
         self.logout(wd)
 
     def test_add_empty_group(self):
         wd = self.wd
-        self.open_home_page(wd)
         self.login(wd, "admin", "secret")
-        self.open_groups_page(wd)
         self.create_group(wd, Group("", "", ""))
         self.logout(wd)
 
@@ -33,6 +29,7 @@ class TestAddGroup(unittest.TestCase):
         wd.find_element(By.LINK_TEXT, "Logout").click()
 
     def create_group(self, wd, group):
+        self.open_groups_page(wd)
         # init group creation
         wd.find_element(By.NAME, "new").click()
         # fill group firm
@@ -53,6 +50,7 @@ class TestAddGroup(unittest.TestCase):
         wd.find_element(By.LINK_TEXT, "groups").click()
 
     def login(self, wd, username, password):
+        self.open_home_page(wd)
         wd.find_element(By.NAME, "user").clear()
         wd.find_element(By.NAME, "user").send_keys(username)
         wd.find_element(By.NAME, "pass").clear()

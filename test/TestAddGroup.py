@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import pytest
-from application import Application
-from group import Group
+from fixture.application import Application
+from model.group import Group
 #Файл, где при помощи вспомогательных функций делают тесты
 @pytest.fixture #Инициализация фикстуры
 def app(request):

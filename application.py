@@ -1,8 +1,6 @@
 from selenium import webdriver
 from selenium.webdriver.common.by import By
-from selenium.webdriver.common.keys import Keys
-from selenium.webdriver.support.ui import Select
-
+#Сами вспомогательные функции
 class Application:
     def __init__(self):
         self.wd = webdriver.Firefox()

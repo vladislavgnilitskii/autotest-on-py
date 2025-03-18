@@ -7,29 +7,29 @@ from selenium.common.exceptions import NoSuchElementException
 from selenium.common.exceptions import NoAlertPresentException
 import unittest, time, re
 from group import Group
-
+""" Фикстура - это самостоятельный объект"""
 class TestAddGroup(unittest.TestCase):
     def setUp(self):
         self.wd = webdriver.Firefox()
         self.wd.implicitly_wait(30)
 
     def test_add_group(self):
-        wd = self.wd
-        self.login(wd, "admin", "secret")
-        self.create_group(wd, Group("House", "asl", "da"))
-        self.logout(wd)
+        self.login("admin", "secret")
+        self.create_group(Group("House", "asl", "da"))
+        self.logout()
 
     def test_add_empty_group(self):
-        wd = self.wd
-        self.login(wd, "admin", "secret")
-        self.create_group(wd, Group("", "", ""))
-        self.logout(wd)
+        self.login("admin", "secret")
+        self.create_group(Group("", "", ""))
+        self.logout()
 
-    def logout(self, wd):
+    def logout(self):
+        wd = self.wd
         wd.find_element(By.LINK_TEXT, "Logout").click()
 
-    def create_group(self, wd, group):
-        self.open_groups_page(wd)
+    def create_group(self, group):
+        wd = self.wd
+        self.open_groups_page()
         # init group creation
         wd.find_element(By.NAME, "new").click()
         # fill group firm
@@ -46,11 +46,13 @@ class TestAddGroup(unittest.TestCase):
         # submit group creations
         wd.find_element(By.NAME, "submit").click()
 
-    def open_groups_page(self, wd):
+    def open_groups_page(self):
+        wd = self.wd
         wd.find_element(By.LINK_TEXT, "groups").click()
 
-    def login(self, wd, username, password):
-        self.open_home_page(wd)
+    def login(self, username, password):
+        wd = self.wd
+        self.open_home_page()
         wd.find_element(By.NAME, "user").clear()
         wd.find_element(By.NAME, "user").send_keys(username)
         wd.find_element(By.NAME, "pass").clear()
@@ -58,7 +60,8 @@ class TestAddGroup(unittest.TestCase):
         wd.find_element(By.ID, "LoginForm").submit()
         wd.find_element(By.XPATH, "//body").click()
 
-    def open_home_page(self, wd):
+    def open_home_page(self):
+        wd = self.wd
         wd.get("http://localhost/addressbook/")
 
     def is_element_present(self, how, what):

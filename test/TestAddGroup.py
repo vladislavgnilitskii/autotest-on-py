@@ -5,7 +5,6 @@ from model.group import Group
 def test_add_group(app): #Тестовый метод
     app.group.create(Group("House", "asl", "da"))
 
-
 def test_add_empty_group(app):
     app.group.create(Group("", "", ""))
 

@@ -13,6 +13,13 @@ class Application:
         self.session = SessionHelper(self)
         self.group = GroupHelper(self)
 
+    def is_valid(self):
+        try:
+            self.wd.current_url
+            return True
+        except:
+            return False
+
     def create_group(self, group):
         wd = self.wd
         self.open_groups_page()
